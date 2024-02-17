@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,7 +55,8 @@ fun Body() {
     }
     val images = arrayOf(
         painterResource(R.drawable.img1),
-        painterResource(R.drawable.img2)
+        painterResource(R.drawable.img2),
+        painterResource(R.drawable.img3)
     )
 
     val currentImage = remember {
@@ -68,30 +70,34 @@ fun Body() {
         Box(
             modifier = Modifier
         ) {
-            Box(
+            Column(
                 modifier = Modifier
-                    .padding(10.dp)
             ) {
-                Image(
+                Box(
                     modifier = Modifier
-                        .width(200.dp)
-                        .height(300.dp),
-                    painter = currentImage.value,
-                    contentDescription = "Art",
-                    alignment = Alignment.Center
-                )
-            }
+                        .width(400.dp)
+                        .padding(10.dp)
+                ) {
+                    Image(
+                        modifier = Modifier,
+                        painter = currentImage.value,
+                        contentDescription = "Art",
+                        alignment = Alignment.Center,
+                        contentScale = ContentScale.Fit
+                    )
+                }
 
-//            Column(
-//
-//            ) {
-//                Text(text = "topic")
-//                Row {
-//                    Text(text = "author")
-//                    Text(text = " ")
-//                    Text(text = "year")
-//                }
-//            }
+                Column(
+
+                ) {
+                    Text(text = "topic")
+                    Row {
+                        Text(text = "author")
+                        Text(text = " ")
+                        Text(text = "year")
+                    }
+                }
+            }
         }
 
         Row(
@@ -102,7 +108,12 @@ fun Body() {
         ) {
             Button(
                 onClick = {
+                    currentImageIndex.value = (currentImageIndex.value - 1);
 
+                    if (currentImageIndex.value < 0)
+                        currentImageIndex.value = images.size - 1;
+
+                    currentImage.value = images[currentImageIndex.value];
                 }
             ) {
                 Text(
@@ -117,8 +128,6 @@ fun Body() {
             Button(
                 onClick = {
                     currentImageIndex.value = (currentImageIndex.value + 1) % images.size;
-                    Log.d("index", currentImageIndex.value.toString())
-                    Log.d("size", images.size.toString())
                     currentImage.value = images[currentImageIndex.value];
                 }
             ) {
