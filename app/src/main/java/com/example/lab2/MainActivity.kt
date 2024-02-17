@@ -1,7 +1,6 @@
 package com.example.lab2
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -24,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -48,19 +47,21 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+data class ArtData(val image: Painter, val topic: String, val author: String, val year: Int)
+
 @Composable
 fun Body() {
-    val currentImageIndex = remember {
+    val currentArtIndex = remember {
         mutableStateOf(0)
     }
-    val images = arrayOf(
-        painterResource(R.drawable.img1),
-        painterResource(R.drawable.img2),
-        painterResource(R.drawable.img3)
+    val arts = arrayOf(
+        ArtData(painterResource(R.drawable.img1), "Cat", "IDK", 2000),
+        ArtData(painterResource(R.drawable.img2), "Woman", "IDK 2", 1990),
+        ArtData(painterResource(R.drawable.img3), "Polygon cat", "IDK 3", 1980)
     )
 
-    val currentImage = remember {
-        mutableStateOf(images[currentImageIndex.value])
+    val currentArt = remember {
+        mutableStateOf(arts[currentArtIndex.value])
     }
 
     Column(
@@ -80,7 +81,7 @@ fun Body() {
                 ) {
                     Image(
                         modifier = Modifier,
-                        painter = currentImage.value,
+                        painter = currentArt.value.image,
                         contentDescription = "Art",
                         alignment = Alignment.Center,
                         contentScale = ContentScale.Fit
@@ -90,11 +91,11 @@ fun Body() {
                 Column(
 
                 ) {
-                    Text(text = "topic")
+                    Text(text = currentArt.value.topic)
                     Row {
-                        Text(text = "author")
+                        Text(text = currentArt.value.author)
                         Text(text = " ")
-                        Text(text = "year")
+                        Text(text = "(${currentArt.value.year})")
                     }
                 }
             }
@@ -108,12 +109,12 @@ fun Body() {
         ) {
             Button(
                 onClick = {
-                    currentImageIndex.value = (currentImageIndex.value - 1);
+                    currentArtIndex.value = (currentArtIndex.value - 1);
 
-                    if (currentImageIndex.value < 0)
-                        currentImageIndex.value = images.size - 1;
+                    if (currentArtIndex.value < 0)
+                        currentArtIndex.value = arts.size - 1;
 
-                    currentImage.value = images[currentImageIndex.value];
+                    currentArt.value = arts[currentArtIndex.value];
                 }
             ) {
                 Text(
@@ -127,8 +128,8 @@ fun Body() {
 
             Button(
                 onClick = {
-                    currentImageIndex.value = (currentImageIndex.value + 1) % images.size;
-                    currentImage.value = images[currentImageIndex.value];
+                    currentArtIndex.value = (currentArtIndex.value + 1) % arts.size;
+                    currentArt.value = arts[currentArtIndex.value];
                 }
             ) {
                 Text(
