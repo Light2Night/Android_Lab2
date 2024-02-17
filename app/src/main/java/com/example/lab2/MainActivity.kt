@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -60,7 +61,7 @@ data class ArtData(val image: Painter, val topic: String, val author: String, va
 @Composable
 fun Body() {
     val currentArtIndex = remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
     val arts = arrayOf(
         ArtData(painterResource(R.drawable.img1), "Cat", "IDK", 2000),
@@ -69,7 +70,7 @@ fun Body() {
     )
 
     val currentArt = remember {
-        mutableStateOf(arts[currentArtIndex.value])
+        mutableStateOf(arts[currentArtIndex.intValue])
     }
 
     Column(
@@ -146,12 +147,12 @@ fun Body() {
         ) {
             Button(
                 onClick = {
-                    currentArtIndex.value = (currentArtIndex.value - 1);
+                    currentArtIndex.intValue = (currentArtIndex.intValue - 1)
 
-                    if (currentArtIndex.value < 0)
-                        currentArtIndex.value = arts.size - 1;
+                    if (currentArtIndex.intValue < 0)
+                        currentArtIndex.intValue = arts.size - 1
 
-                    currentArt.value = arts[currentArtIndex.value];
+                    currentArt.value = arts[currentArtIndex.intValue]
                 }
             ) {
                 Text(
@@ -165,8 +166,8 @@ fun Body() {
 
             Button(
                 onClick = {
-                    currentArtIndex.value = (currentArtIndex.value + 1) % arts.size;
-                    currentArt.value = arts[currentArtIndex.value];
+                    currentArtIndex.intValue = (currentArtIndex.intValue + 1) % arts.size
+                    currentArt.value = arts[currentArtIndex.intValue]
                 }
             ) {
                 Text(
