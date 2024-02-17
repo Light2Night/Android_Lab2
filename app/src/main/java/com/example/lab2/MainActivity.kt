@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -74,49 +75,54 @@ fun Body() {
         modifier = Modifier
             .padding(10.dp, 0.dp)
     ) {
-        Box(
+        Column(
             modifier = Modifier
+                .fillMaxWidth()
         ) {
-            Column(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .padding(4.dp)
+                    .shadow(4.dp, RoundedCornerShape(4.dp), false, Color(236, 235, 244))
+                    .width(300.dp)
+                    .height(400.dp)
+                    .align(Alignment.CenterHorizontally)
             ) {
                 Box(
                     modifier = Modifier
                         .padding(26.dp)
-                        .shadow(4.dp, RoundedCornerShape(4.dp), true, Color(236, 235, 244))
                 ) {
                     Image(
-                        modifier = Modifier,
+                        modifier = Modifier
+                            .fillMaxSize(),
                         painter = currentArt.value.image,
                         contentDescription = "Art",
                         alignment = Alignment.Center,
                         contentScale = ContentScale.Fit
                     )
                 }
+            }
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color(236, 235, 244))
-                        .padding(14.dp)
-                ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(236, 235, 244))
+                    .padding(14.dp)
+            ) {
+                Text(
+                    fontSize = 24.sp,
+                    text = currentArt.value.topic
+                )
+                Row {
                     Text(
-                        fontSize = 24.sp,
-                        text = currentArt.value.topic
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        text = currentArt.value.author
                     )
-                    Row {
-                        Text(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            text = currentArt.value.author
-                        )
-                        Text(text = " ")
-                        Text(
-                            fontSize = 16.sp,
-                            text = "(${currentArt.value.year})"
-                        )
-                    }
+                    Text(text = " ")
+                    Text(
+                        fontSize = 16.sp,
+                        text = "(${currentArt.value.year})"
+                    )
                 }
             }
         }
