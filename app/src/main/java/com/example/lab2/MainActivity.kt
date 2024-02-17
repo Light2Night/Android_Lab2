@@ -77,14 +77,15 @@ fun Body() {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .width(340.dp)
+                .align(Alignment.CenterHorizontally)
         ) {
             Box(
                 modifier = Modifier
                     .padding(4.dp)
                     .shadow(4.dp, RoundedCornerShape(4.dp), false, Color(236, 235, 244))
-                    .width(300.dp)
-                    .height(400.dp)
+                    .width(340.dp)
+                    .height(440.dp)
                     .align(Alignment.CenterHorizontally)
             ) {
                 Box(
@@ -102,27 +103,34 @@ fun Body() {
                 }
             }
 
-            Column(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(236, 235, 244))
-                    .padding(14.dp)
+                    .padding(8.dp)
+                    .width(340.dp)
+                    .align(Alignment.CenterHorizontally)
             ) {
-                Text(
-                    fontSize = 24.sp,
-                    text = currentArt.value.topic
-                )
-                Row {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(236, 235, 244))
+                        .padding(14.dp)
+                ) {
                     Text(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        text = currentArt.value.author
+                        fontSize = 24.sp,
+                        text = currentArt.value.topic
                     )
-                    Text(text = " ")
-                    Text(
-                        fontSize = 16.sp,
-                        text = "(${currentArt.value.year})"
-                    )
+                    Row {
+                        Text(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            text = currentArt.value.author
+                        )
+                        Text(text = " ")
+                        Text(
+                            fontSize = 16.sp,
+                            text = "(${currentArt.value.year})"
+                        )
+                    }
                 }
             }
         }
