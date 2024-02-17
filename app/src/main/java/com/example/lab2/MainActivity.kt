@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -22,12 +24,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.lab2.ui.theme.Lab2Theme
 
 class MainActivity : ComponentActivity() {
@@ -73,11 +79,12 @@ fun Body() {
         ) {
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
             ) {
                 Box(
                     modifier = Modifier
-                        .width(400.dp)
-                        .padding(10.dp)
+                        .padding(26.dp)
+                        .shadow(4.dp, RoundedCornerShape(4.dp), true, Color(236, 235, 244))
                 ) {
                     Image(
                         modifier = Modifier,
@@ -89,13 +96,26 @@ fun Body() {
                 }
 
                 Column(
-
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(236, 235, 244))
+                        .padding(14.dp)
                 ) {
-                    Text(text = currentArt.value.topic)
+                    Text(
+                        fontSize = 24.sp,
+                        text = currentArt.value.topic
+                    )
                     Row {
-                        Text(text = currentArt.value.author)
+                        Text(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            text = currentArt.value.author
+                        )
                         Text(text = " ")
-                        Text(text = "(${currentArt.value.year})")
+                        Text(
+                            fontSize = 16.sp,
+                            text = "(${currentArt.value.year})"
+                        )
                     }
                 }
             }
