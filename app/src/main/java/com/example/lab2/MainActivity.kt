@@ -45,7 +45,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Body() {
-//    val image1 = painterResource(R.drawable.ellipse_54);
+    val image1 = painterResource(R.drawable.img1);
+    val image2 = painterResource(R.drawable.img2);
 
     Column(
         modifier = Modifier
